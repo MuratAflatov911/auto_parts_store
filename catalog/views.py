@@ -33,6 +33,10 @@ def catalog_list(request):
         'models': VehicleModel.objects.filter(make_id=make_id) if make_id else VehicleModel.objects.none(),
         'generations': VehicleGeneration.objects.filter(model_id=model_id) if model_id else VehicleGeneration.objects.none(),
         'engines': VehicleEngine.objects.filter(generation_id=generation_id) if generation_id else VehicleEngine.objects.none(),
+        'selected_make_id': make_id,
+        'selected_model_id': model_id,
+        'selected_generation_id': generation_id,
+        'selected_engine_id': request.GET.get('engine', ''),
     }
     return render(request, 'catalog/list.html', context)
 

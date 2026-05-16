@@ -8,7 +8,6 @@
         <li class='nav-item'><a class='nav-link text-light' href='{% url "main:news" %}'>Новости</a></li>
         <li class='nav-item'><a class='nav-link text-light' href='{% url "main:promotions" %}'>Акции</a></li>
         <li class='nav-item'><a class='nav-link text-light' href='{% url "main:contacts" %}'>Контакты</a></li>
-        <li class='nav-item'><a class='nav-link text-light' href='/admin/'>Админка</a></li>
       </ul>
       <div class="d-flex gap-2 align-items-center">
         <a href='{% url "cart:detail" %}' class='btn btn-outline-danger btn-sm'>Корзина ({{ cart_item_count }})</a>
@@ -17,6 +16,7 @@
           <a href='{% url "accounts:logout" %}' class='btn btn-outline-light btn-sm'>Выход</a>
         {% else %}
           <a href='{% url "accounts:login" %}' class='btn btn-danger btn-sm'>Вход</a>
+          <a href='{% url "accounts:register" %}' class='btn btn-outline-light btn-sm'>Регистрация</a>
         {% endif %}
       </div>
     </div>
@@ -27,10 +27,10 @@
     <div class="text-light mb-2">Выберите ваш автомобиль: <strong class='text-danger'>{{ selected_vehicle|default:"не выбран" }}</strong></div>
     <form method="post" action="{% url 'catalog:vehicle_select' %}" class="row g-2 align-items-end">
       {% csrf_token %}
-      <div class="col-md-3"><label class="form-label text-light small">Марка</label><select name="make" id="makeSelect" class="form-select form-select-sm"> <option value="">Выберите марку</option>{% for make in makes %}<option value="{{ make.id }}">{{ make.name }}</option>{% endfor %}</select></div>
-      <div class="col-md-3"><label class="form-label text-light small">Модель</label><select name="model" id="modelSelect" class="form-select form-select-sm"><option value="">Выберите модель</option>{% for m in models %}<option value="{{ m.id }}">{{ m.name }}</option>{% endfor %}</select></div>
-      <div class="col-md-3"><label class="form-label text-light small">Поколение</label><select name="generation" id="generationSelect" class="form-select form-select-sm"><option value="">Выберите поколение</option>{% for g in generations %}<option value="{{ g.id }}">{{ g.name }}</option>{% endfor %}</select></div>
-      <div class="col-md-2"><label class="form-label text-light small">Двигатель</label><select name="engine" id="engineSelect" class="form-select form-select-sm" required><option value="">Выберите двигатель</option>{% for e in engines %}<option value="{{ e.id }}">{{ e.name }}</option>{% endfor %}</select></div>
+      <div class="col-md-3"><label class="form-label text-light small">Марка</label><select name="make" id="makeSelect" class="form-select form-select-sm"><option value="">Выберите марку</option>{% for make in makes %}<option value="{{ make.id }}" {% if request.GET.make == make.id|stringformat:'s' %}selected{% endif %}>{{ make.name }}</option>{% endfor %}</select></div>
+      <div class="col-md-3"><label class="form-label text-light small">Модель</label><select name="model" id="modelSelect" class="form-select form-select-sm"><option value="">Выберите модель</option>{% for m in models %}<option value="{{ m.id }}" {% if request.GET.model == m.id|stringformat:'s' %}selected{% endif %}>{{ m.name }}</option>{% endfor %}</select></div>
+      <div class="col-md-3"><label class="form-label text-light small">Поколение</label><select name="generation" id="generationSelect" class="form-select form-select-sm"><option value="">Выберите поколение</option>{% for g in generations %}<option value="{{ g.id }}" {% if request.GET.generation == g.id|stringformat:'s' %}selected{% endif %}>{{ g.name }}</option>{% endfor %}</select></div>
+      <div class="col-md-2"><label class="form-label text-light small">Двигатель</label><select name="engine" id="engineSelect" class="form-select form-select-sm" required><option value="">Выберите двигатель</option>{% for e in engines %}<option value="{{ e.id }}" {% if request.GET.engine == e.id|stringformat:'s' %}selected{% endif %}>{{ e.name }}</option>{% endfor %}</select></div>
       <div class="col-md-1 d-flex gap-1">
         <button class="btn btn-sm btn-danger" type="submit">OK</button>
         <a href="{% url 'catalog:vehicle_clear' %}" class="btn btn-sm btn-outline-light">Сброс</a>
