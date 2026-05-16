@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<h1>Корзина</h1>{% for i in cart.items.all %}<div>{{i.product.name}} x {{i.quantity}}</div>{% empty %}Пусто{% endfor %}<a href='/orders/checkout/' class='btn btn-danger mt-3'>Оформить заказ</a>{% endblock %}
