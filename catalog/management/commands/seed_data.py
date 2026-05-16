@@ -58,33 +58,33 @@ class Command(BaseCommand):
                     VehicleEngine.objects.get_or_create(generation=generation, name=engine_name, year_from=1998, year_to=2021)
 
         product_bases = [
-            ('Моторное масло Mobil 1 ESP 5W-30 4л', 'Mobil', 4250),
-            ('Моторное масло Shell Helix Ultra 5W-40 4л', 'Shell', 4390),
-            ('Моторное масло Лукойл Genesis Armortech 5W-40 4л', 'Лукойл', 2890),
-            ('Фильтр масляный MANN W 914/2', 'MANN', 790),
-            ('Фильтр воздушный Bosch F026400123', 'Bosch', 990),
-            ('Фильтр салона Filtron K 1060A', 'Filtron', 820),
-            ('Аккумулятор Varta Blue Dynamic D47 60Ач', 'Varta', 9450),
-            ('Колодки тормозные передние TRW GDB1330', 'TRW', 3650),
-            ('Свеча зажигания NGK BKR6E-11', 'NGK', 450),
-            ('Шина Cordiant Comfort 2 195/65 R15', 'Cordiant', 5800),
-            ('Амортизатор передний KYB Excel-G 334838', 'KYB', 5200),
-            ('Ремень ГРМ Gates K015670XS', 'Gates', 6100),
-            ('Диск тормозной Brembo 09.7011.11', 'Brembo', 4700),
-            ('Антифриз Felix Carbox G12+ 5кг', 'Felix', 1390),
-            ('Жидкость тормозная DOT-4 RosDOT 910г', 'RosDOT', 590),
-            ('Щетка стеклоочистителя Bosch AeroTwin 600мм', 'Bosch', 1200),
-            ('Лампа H7 Philips Vision +30%', 'Philips', 890),
-            ('Стойка стабилизатора CTR CLM-9', 'CTR', 960),
+            ('Моторное масло Mobil 1 ESP 5W-30 4л', 'Mobil', 4250, 'Моторные масла'),
+            ('Моторное масло Shell Helix Ultra 5W-40 4л', 'Shell', 4390, 'Моторные масла'),
+            ('Моторное масло Лукойл Genesis Armortech 5W-40 4л', 'Лукойл', 2890, 'Моторные масла'),
+            ('Фильтр масляный MANN W 914/2', 'MANN', 790, 'Фильтры'),
+            ('Фильтр воздушный Bosch F026400123', 'Bosch', 990, 'Фильтры'),
+            ('Фильтр салона Filtron K 1060A', 'Filtron', 820, 'Фильтры'),
+            ('Аккумулятор Varta Blue Dynamic D47 60Ач', 'Varta', 9450, 'Аккумуляторы'),
+            ('Колодки тормозные передние TRW GDB1330', 'TRW', 3650, 'Тормозные колодки'),
+            ('Свеча зажигания NGK BKR6E-11', 'NGK', 450, 'Свечи зажигания'),
+            ('Шина Cordiant Comfort 2 195/65 R15', 'Cordiant', 5800, 'Шины'),
+            ('Амортизатор передний KYB Excel-G 334838', 'KYB', 5200, 'Подвеска'),
+            ('Ремень ГРМ Gates K015670XS', 'Gates', 6100, 'Ремни и ролики'),
+            ('Диск тормозной Brembo 09.7011.11', 'Brembo', 4700, 'Тормозные диски'),
+            ('Антифриз Felix Carbox G12+ 5кг', 'Felix', 1390, 'Жидкости'),
+            ('Жидкость тормозная DOT-4 RosDOT 910г', 'RosDOT', 590, 'Жидкости'),
+            ('Щетка стеклоочистителя Bosch AeroTwin 600мм', 'Bosch', 1200, 'Щетки стеклоочистителя'),
+            ('Лампа H7 Philips Vision +30%', 'Philips', 890, 'Аксессуары'),
+            ('Стойка стабилизатора CTR CLM-9', 'CTR', 960, 'Подвеска'),
         ]
 
         engines = list(VehicleEngine.objects.all())
         for i in range(1, 81):
-            base_name, brand, price = random.choice(product_bases)
+            base_name, brand, price, category_name = random.choice(product_bases)
             product, _ = Product.objects.get_or_create(
                 article=f'AUT-{i:05}',
                 defaults={
-                    'category': random.choice(cat_objs),
+                    'category': Category.objects.get(name=category_name),
                     'name': base_name,
                     'slug': slugify(f'{base_name}-{i}'),
                     'description': f'{base_name}. Качественная запчасть для обслуживания и ремонта.',

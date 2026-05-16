@@ -21,7 +21,7 @@ def catalog_list(request):
     if selected_engine:
         qs = qs.filter(Q(compatible_engines=selected_engine) | Q(compatible_engines__isnull=True)).distinct()
 
-    page = Paginator(qs.distinct(), 12).get_page(request.GET.get('page'))
+    page = Paginator(qs.distinct(), 120).get_page(request.GET.get('page'))
 
     make_id = request.GET.get('make')
     model_id = request.GET.get('model')
