@@ -1,1 +1,16 @@
-{% extends 'base.html' %}{% block content %}<h1>promotions</h1>{% endblock %}
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="mb-4">Акции и скидки</h1>
+<div class="row g-3">
+{% for d in discounts %}
+  <div class="col-md-6">
+    <div class="card product-card h-100"><div class="card-body">
+      <h5>{{ d.title }} — <span class="text-danger">-{{ d.percent }}%</span></h5>
+      <p>{{ d.description }}</p>
+    </div></div>
+  </div>
+{% empty %}
+  <p>Активных акций нет.</p>
+{% endfor %}
+</div>
+{% endblock %}

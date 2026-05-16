@@ -22,6 +22,7 @@
     </div>
   </div>
 </nav>
+{% if show_vehicle_filter %}
 <div class="bg-dark border-bottom border-secondary py-3">
   <div class="container">
     <div class="text-light mb-2">Выберите ваш автомобиль: <strong class='text-danger'>{{ selected_vehicle|default:"не выбран" }}</strong></div>
@@ -38,3 +39,4 @@
     </form>
   </div>
 </div>
+{% endif %}

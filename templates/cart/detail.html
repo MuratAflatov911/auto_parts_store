@@ -1,1 +1,42 @@
-{% extends 'base.html' %}{% block content %}<h1>Корзина</h1>{% for i in cart.items.all %}<div>{{i.product.name}} x {{i.quantity}}</div>{% empty %}Пусто{% endfor %}<a href='/orders/checkout/' class='btn btn-danger mt-3'>Оформить заказ</a>{% endblock %}
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="mb-4">Корзина</h1>
+{% if cart.items.exists %}
+  <div class="table-responsive">
+    <table class="table table-dark table-striped align-middle">
+      <thead>
+        <tr>
+          <th>Товар</th>
+          <th>Цена</th>
+          <th style="width: 180px;">Количество</th>
+          <th>Сумма</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in cart.items.all %}
+          <tr>
+            <td>{{ i.product.name }}</td>
+            <td>{{ i.product.price }} ₽</td>
+            <td>
+              <form method="post" action="{% url 'cart:update' i.id %}" class="d-flex gap-2">
+                {% csrf_token %}
+                <input type="number" name="quantity" min="1" value="{{ i.quantity }}" class="form-control form-control-sm">
+                <button class="btn btn-sm btn-danger">OK</button>
+              </form>
+            </td>
+            <td>{{ i.product.price|floatformat:2 }} ₽ x {{ i.quantity }}</td>
+            <td><a href="{% url 'cart:remove' i.id %}" class="btn btn-sm btn-outline-light">Удалить</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-between align-items-center">
+    <h4>Итого: {{ total }} ₽</h4>
+    <a href="{% url 'orders:checkout' %}" class='btn btn-danger'>Оформить заказ</a>
+  </div>
+{% else %}
+  <p>Корзина пуста.</p>
+{% endif %}
+{% endblock %}
