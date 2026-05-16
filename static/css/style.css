@@ -1,2 +1,13 @@
-body{background:#121212;color:#e9ecef}.hero{background:linear-gradient(135deg,#1e1e1e,#2e0b0b);border:1px solid #dc3545}.product-card{background:#1f1f1f;border:1px solid #333;transition:.25s}.product-card:hover{transform:translateY(-4px);border-color:#dc3545}
+body{background:#121212;color:#e9ecef}
+.hero{background:linear-gradient(135deg,#1e1e1e,#2e0b0b);border:1px solid #dc3545}
+.product-card{background:#1f1f1f;border:1px solid #333;transition:.25s}
+.product-card:hover{transform:translateY(-4px);border-color:#dc3545}
+.product-card .card-body{color:#fff}
+.product-card a{color:#fff}
+.product-card a:hover{color:#ff6b6b}
 a{color:#ff6b6b}
+.auth-card{background:#1a1a1a;border:1px solid #343a40}
+.auth-card input,.auth-card select,.auth-card textarea{background:#111;color:#fff;border:1px solid #555;border-radius:10px;padding:.6rem .75rem;width:100%}
+.auth-card label{display:block;margin-bottom:.35rem;color:#adb5bd;font-size:.9rem}
+.auth-card p{margin:0}
+.auth-card ul.errorlist{list-style:none;padding:0;margin:0 0 .25rem;color:#ff8787}

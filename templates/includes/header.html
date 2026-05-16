@@ -8,6 +8,7 @@
         <li class='nav-item'><a class='nav-link text-light' href='{% url "main:news" %}'>Новости</a></li>
         <li class='nav-item'><a class='nav-link text-light' href='{% url "main:promotions" %}'>Акции</a></li>
         <li class='nav-item'><a class='nav-link text-light' href='{% url "main:contacts" %}'>Контакты</a></li>
+        <li class='nav-item'><a class='nav-link text-light' href='/admin/'>Админка</a></li>
       </ul>
       <div class="d-flex gap-2 align-items-center">
         <a href='{% url "cart:detail" %}' class='btn btn-outline-danger btn-sm'>Корзина ({{ cart_item_count }})</a>
@@ -21,14 +22,19 @@
     </div>
   </div>
 </nav>
-<div class="bg-dark border-bottom border-secondary py-2">
-  <div class="container d-flex flex-wrap gap-2 justify-content-between align-items-center">
-    <span class='text-light'>Ваш автомобиль: <strong class='text-danger'>{{ selected_vehicle|default:"не выбран" }}</strong></span>
-    <form method="post" action="{% url 'catalog:vehicle_select' %}" class="d-flex gap-2 flex-wrap">
+<div class="bg-dark border-bottom border-secondary py-3">
+  <div class="container">
+    <div class="text-light mb-2">Выберите ваш автомобиль: <strong class='text-danger'>{{ selected_vehicle|default:"не выбран" }}</strong></div>
+    <form method="post" action="{% url 'catalog:vehicle_select' %}" class="row g-2 align-items-end">
       {% csrf_token %}
-      <input name="engine" type="number" min="1" class="form-control form-control-sm" style="max-width:180px" placeholder="ID двигателя">
-      <button class="btn btn-sm btn-danger" type="submit">Сохранить авто</button>
-      <a href="{% url 'catalog:vehicle_clear' %}" class="btn btn-sm btn-outline-light">Сброс</a>
+      <div class="col-md-3"><label class="form-label text-light small">Марка</label><select name="make" id="makeSelect" class="form-select form-select-sm"> <option value="">Выберите марку</option>{% for make in makes %}<option value="{{ make.id }}">{{ make.name }}</option>{% endfor %}</select></div>
+      <div class="col-md-3"><label class="form-label text-light small">Модель</label><select name="model" id="modelSelect" class="form-select form-select-sm"><option value="">Выберите модель</option>{% for m in models %}<option value="{{ m.id }}">{{ m.name }}</option>{% endfor %}</select></div>
+      <div class="col-md-3"><label class="form-label text-light small">Поколение</label><select name="generation" id="generationSelect" class="form-select form-select-sm"><option value="">Выберите поколение</option>{% for g in generations %}<option value="{{ g.id }}">{{ g.name }}</option>{% endfor %}</select></div>
+      <div class="col-md-2"><label class="form-label text-light small">Двигатель</label><select name="engine" id="engineSelect" class="form-select form-select-sm" required><option value="">Выберите двигатель</option>{% for e in engines %}<option value="{{ e.id }}">{{ e.name }}</option>{% endfor %}</select></div>
+      <div class="col-md-1 d-flex gap-1">
+        <button class="btn btn-sm btn-danger" type="submit">OK</button>
+        <a href="{% url 'catalog:vehicle_clear' %}" class="btn btn-sm btn-outline-light">Сброс</a>
+      </div>
     </form>
   </div>
 </div>
