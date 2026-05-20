@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-md-5">
+    {% if product.image %}<img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">{% endif %}
+    <div class="mt-2 d-flex gap-2 flex-wrap">
+      {% for img in product.images.all %}
+        <img src="{{ img.image.url }}" alt="{{ product.name }}" style="width:90px;height:90px;object-fit:cover" class="rounded border border-secondary">
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-md-7">
+    <h1>{{ product.name }}</h1>
+    <p class="text-secondary">{{ product.description }}</p>
+    <p class="fs-4 text-white">{{ product.price }} ₽ {% if product.old_price %}<span class='text-decoration-line-through text-secondary fs-6'>{{ product.old_price }} ₽</span>{% endif %}</p>
+    <p>Бренд: {{ product.brand }} | Артикул: {{ product.article }} | Наличие: {{ product.stock }}</p>
+    <a href="{% url 'cart:add' product.id %}" class="btn btn-danger">Добавить в корзину</a>
+    <h4 class="mt-4">Совместимые автомобили</h4>
+    <ul>{% for e in product.compatible_engines.all|slice:':20' %}<li>{{ e.generation.model.make.name }} {{ e.generation.model.name }} {{ e.generation.name }} {{ e.name }}</li>{% endfor %}</ul>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,1 @@
+{% extends 'base.html' %}{% block content %}<h1>Личный кабинет</h1>{% for o in orders %}<div>Заказ #{{o.id}} — {{o.status}}</div>{% empty %}Заказов нет{% endfor %}{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Каталог</h1>
+<form class='row g-2 mb-3' method="get">
+  <div class='col-md-4'><input name='q' value="{{ request.GET.q }}" class='form-control' placeholder='Поиск'></div>
+  <div class='col-md-3'><select name="category" class="form-select"><option value="">Все категории</option>{% for c in categories %}<option value="{{ c.slug }}" {% if request.GET.category == c.slug %}selected{% endif %}>{{ c.name }}</option>{% endfor %}</select></div>
+  <div class='col-md-3'><select name="sort" class="form-select"><option value="">Сортировка</option><option value="price">Цена ↑</option><option value="-price">Цена ↓</option></select></div>
+  <div class='col-md-2'><button class='btn btn-danger w-100'>Найти</button></div>
+</form>
+<div class='row g-3'>
+{% for p in page_obj %}
+<div class='col-md-3'>
+  <div class='card product-card h-100'>
+    {% if p.image %}<img src="{{ p.image.url }}" class="card-img-top" style="height:180px;object-fit:cover" alt="{{ p.name }}">{% endif %}
+    <div class='card-body d-flex flex-column'>
+      <a href='{{ p.get_absolute_url }}' class='text-decoration-none mb-2'>{{ p.name }}</a>
+      <div class='small text-secondary mb-2'>Категория: {{ p.category.name }}</div>
+      <div class='mt-auto text-white fw-semibold'>{{ p.price }} ₽</div>
+      {% if user.is_authenticated %}
+        <a href='{% url "cart:add" p.id %}' class='btn btn-sm btn-outline-danger mt-2'>В корзину</a>
+      {% else %}
+        <a href='{% url "accounts:login" %}' class='btn btn-sm btn-outline-light mt-2'>Войдите, чтобы купить</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% empty %}<p>Товары не найдены.</p>{% endfor %}
+</div>
+{% endblock %}

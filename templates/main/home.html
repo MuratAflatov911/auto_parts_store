@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class='hero p-5 rounded-4 mb-4'>
+  <h1>Интернет-магазин автозапчастей «Автомир»</h1>
+  <p>Город Апшеронск. Подбор запчастей, масел и расходников для вашего авто.</p>
+  <a href="{% url 'catalog:catalog_list' %}" class="btn btn-danger">Перейти в каталог</a>
+</section>
+<h3 class="mb-3">Популярные товары</h3>
+<div class='row g-3'>
+  {% for p in popular_products %}
+    <div class='col-md-3'>
+      <div class='card product-card h-100'><div class='card-body'>
+        <a href='{{ p.get_absolute_url }}' class='text-light text-decoration-none'>{{ p.name }}</a>
+        <div>{{ p.price }} ₽</div>
+      </div></div>
+    </div>
+  {% empty %}<p>Пока нет популярных товаров.</p>{% endfor %}
+</div>
+{% endblock %}

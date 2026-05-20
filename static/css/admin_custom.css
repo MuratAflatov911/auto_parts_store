@@ -1,0 +1,14 @@
+:root {
+  --primary: #d90429;
+  --secondary: #2b2d42;
+  --accent: #ef233c;
+}
+#header { background: linear-gradient(90deg, #111, #2b2d42) !important; }
+#site-name a { color: #fff !important; font-weight: 700; }
+.module h2, .module caption, .inline-group h2 { background: #1f1f1f !important; color: #fff !important; }
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+  background: #d90429 !important; border-color: #d90429 !important;
+}
+.button:hover, input[type=submit]:hover, .submit-row input:hover, a.button:hover {
+  background: #ef233c !important;
+}
